@@ -1,78 +1,78 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+
+using T4MVCCoreLiteTool.Extensions;
 
 namespace T4MVCCoreLiteTool
 {
+    /// <summary>
+    /// Handles changes to non-generated mvc controller inheriting classes
+    /// </summary>
     public class ControllerRewriter : CSharpSyntaxRewriter
     {
-        private IList<KeyValuePair<ClassDeclarationSyntax, MethodDeclarationSyntax>> _controllers = null;
-        public ILookup<ClassDeclarationSyntax, MethodDeclarationSyntax> Controllers => _controllers.ToLookup(x => x.Key, x => x.Value, ClassDeclarationSyntaxComparer.Instance);
+        private readonly CSharpCompilation _compiler;
 
-        private class ClassDeclarationSyntaxComparer : IEqualityComparer<ClassDeclarationSyntax>
+        private readonly List<ClassDeclarationSyntax> _mvcControllerClassNodes = new List<ClassDeclarationSyntax>();
+
+        public ControllerRewriter(CSharpCompilation compiler)
         {
-            public bool Equals(ClassDeclarationSyntax x, ClassDeclarationSyntax y)
-            {
-                return String.Equals(x.Identifier.Text, y.Identifier.Text);
-            }
-
-            public int GetHashCode(ClassDeclarationSyntax obj)
-            {
-                return obj.Identifier.Text.GetHashCode();
-            }
-
-            public static readonly ClassDeclarationSyntaxComparer Instance = new ClassDeclarationSyntaxComparer();
+            this._compiler = compiler;
         }
 
-        private SyntaxToken CreateModifierToken(SyntaxKind modifier)
-        {
-            return SyntaxFactory.Token(SyntaxFactory.TriviaList(), modifier, SyntaxFactory.TriviaList(SyntaxFactory.Space));
-        }
-
-        private bool IsClassNode(ClassDeclarationSyntax node)
-        {
-            if (node.BaseList == null)
-                return false;
-            var identifiers = node.BaseList?.Types.Select(t => t.Type).OfType<IdentifierNameSyntax>();
-            return identifiers.Any(i => i.Identifier.Text == "Controller");
-        }
-
-        public void Reset()
-        {
-            _controllers = new List<KeyValuePair<ClassDeclarationSyntax, MethodDeclarationSyntax>>();
-        }
+        public ClassDeclarationSyntax[] MvcControllerClassNodes => this._mvcControllerClassNodes.ToArray();
 
         public override SyntaxNode VisitClassDeclaration(ClassDeclarationSyntax node)
         {
-            node = (ClassDeclarationSyntax)base.VisitClassDeclaration(node);
-            if (IsClassNode(node))
+            // grab the symbol first and pass to other visitors first
+            var symbol = _compiler.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
+            var newNode = (ClassDeclarationSyntax)base.VisitClassDeclaration(node);
+            if (symbol.InheritsFrom<Controller>() && !IsForcedExclusion(symbol))
             {
-                if (!node.Modifiers.Any(SyntaxKind.PartialKeyword))
+                // hold a list of all controller classes to use later for the generator
+                _mvcControllerClassNodes.Add(node);
+
+                if (!newNode.Modifiers.Any(SyntaxKind.PartialKeyword))
                 {
-                    node = node.AddModifiers(CreateModifierToken(SyntaxKind.PartialKeyword));
+                    Debug.WriteLine("R4MVC - Marking {0} class a partial", symbol);
+                    newNode = newNode.WithModifiers(SyntaxKind.PartialKeyword);
                 }
             }
-            return node;
+
+            return newNode;
+        }
+
+        private static bool IsForcedExclusion(INamedTypeSymbol symbol)
+        {
+            return false;
+            //// need to fully qualify attribute type for reliable matching
+            //var r4attribute = symbol.GetAttributes().ToArray().FirstOrDefault(x => x.AttributeClass.ToDisplayString() == typeof(R4MVCExcludeAttribute).FullName);
+            //return r4attribute != null;
         }
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
-            var controllerNode = node.FirstAncestorOrSelf<ClassDeclarationSyntax>();
-            if (IsClassNode(controllerNode))
+
+            // only public methods not marked as virtual
+            if (node.Modifiers.Any(SyntaxKind.PublicKeyword) && !node.Modifiers.Any(SyntaxKind.VirtualKeyword))
             {
-                if ((node.ReturnType as IdentifierNameSyntax)?.Identifier.Text == "IActionResult")
+                var symbol = _compiler.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
+                if (symbol.InheritsFrom<Controller>())
                 {
-                    _controllers.Add(new KeyValuePair<ClassDeclarationSyntax, MethodDeclarationSyntax>(controllerNode, node));
-                    if (!node.Modifiers.Any(SyntaxKind.VirtualKeyword) && node.Modifiers.Any(SyntaxKind.PublicKeyword))
-                    {
-                        node = node.AddModifiers(CreateModifierToken(SyntaxKind.VirtualKeyword));
-                    }
+                    Debug.WriteLine(
+                        "R4MVC - Marking controller method {0} as virtual from {1}",
+                        symbol.ToString(),
+                        symbol.ContainingType?.ToString());
+                    node = node.WithModifiers(SyntaxKind.VirtualKeyword);
                 }
             }
+
             return node;
         }
     }
