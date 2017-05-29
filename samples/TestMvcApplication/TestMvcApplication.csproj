@@ -22,23 +22,10 @@
     <ProjectReference Include="..\..\src\T4MVCCoreLite\T4MVCCoreLite.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="T4MVC.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <Target Name="T4MVCCore" BeforeTargets="Build">
-    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\..\src\T4MVCCoreLiteTool\bin\debug\net462\T4MVCCoreLiteTool.exe&quot; &quot;$(MSBuildProjectDirectory)&quot;" />
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\..\src\T4MVCCoreLiteTool\bin\debug\net462\T4MVCCoreLiteTool.exe&quot; &quot;$(ProjectPath)&quot;" />
   </Target>
 </Project>
