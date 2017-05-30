@@ -129,7 +129,7 @@ namespace T4MVCCoreLiteTool.Extensions
             return methodNode;
         }
 
-        public static FieldDeclarationSyntax CreateFieldWithDefaultInitializer(string fieldName, string typeName, params SyntaxKind[] modifiers)
+        public static FieldDeclarationSyntax CreateFieldWithDefaultInitializer(string fieldName, string typeName, string valueTypeName, params SyntaxKind[] modifiers)
         {
             return FieldDeclaration(
                 VariableDeclaration(ParseTypeName(typeName))
@@ -138,7 +138,7 @@ namespace T4MVCCoreLiteTool.Extensions
                             VariableDeclarator(Identifier(fieldName))
                                 .WithInitializer(
                                     EqualsValueClause(
-                                        ObjectCreationExpression(IdentifierName(typeName))
+                                        ObjectCreationExpression(IdentifierName(valueTypeName))
                                             .WithArgumentList(ArgumentList())))))).WithModifiers(modifiers);
         }
 
@@ -251,7 +251,7 @@ namespace T4MVCCoreLiteTool.Extensions
 
         public static ClassDeclarationSyntax WithField(this ClassDeclarationSyntax node, string fieldName, string typeName, params SyntaxKind[] modifiers)
         {
-            var field = CreateFieldWithDefaultInitializer(fieldName, typeName, modifiers);
+            var field = CreateFieldWithDefaultInitializer(fieldName, typeName, typeName, modifiers);
             return node.AddMembers(field);
         }
 

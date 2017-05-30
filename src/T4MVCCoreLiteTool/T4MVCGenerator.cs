@@ -47,7 +47,7 @@ namespace T4MVCCoreLiteTool
             // Create the root node and add usings, header, pragma
             var r4mvcNode =
                 SyntaxFactory.CompilationUnit()
-                    .WithUsings("System.CodeDom.Compiler", "System.Diagnostics", "Microsoft.AspNetCore.Mvc")
+                    .WithUsings("System.CodeDom.Compiler", "System.Diagnostics", "System.Threading.Tasks", "Microsoft.AspNetCore.Mvc", "Microsoft.AspNetCore.Routing", settings.R4MvcNamespace)
                     .WithHeader(_headerText)
                     .WithPragmaCodes(false, pramaCodes);
 

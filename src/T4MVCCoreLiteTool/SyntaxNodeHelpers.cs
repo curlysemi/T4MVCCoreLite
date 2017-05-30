@@ -229,6 +229,30 @@ namespace T4MVCCoreLiteTool
             return node.AddMembers(ctorNode);
         }
 
+        public static ClassDeclarationSyntax WithDefaultDummyBaseConstructor(this ClassDeclarationSyntax node, bool includeGeneratedAttributes = true, params SyntaxKind[] modifiers)
+        {
+            var ctorNode = CreateDefaultConstructor(node.Identifier.ToString())
+                .WithModifiers(modifiers)
+                .WithInitializer(ConstructorInitializer(SyntaxKind.BaseConstructorInitializer, ArgumentList(SeparatedList(new[] { Argument(MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, IdentifierName("Dummy"), IdentifierName("Instance"))) }))));
+            if (includeGeneratedAttributes)
+            {
+                ctorNode = ctorNode.WithAttributes(CreateGeneratedCodeAttribute(), CreateDebugNonUserCodeAttribute());
+            }
+            return node.AddMembers(ctorNode);
+        }
+
+        public static ClassDeclarationSyntax WithDummyConstructor(this ClassDeclarationSyntax node, bool includeGeneratedAttributes = true, params SyntaxKind[] modifiers)
+        {
+            var ctorNode = CreateDefaultConstructor(node.Identifier.ToString())
+                .WithModifiers(modifiers)
+                .AddParameterListParameters(Parameter(Identifier("d")).WithType(ParseTypeName("Dummy")));
+            if (includeGeneratedAttributes)
+            {
+                ctorNode = ctorNode.WithAttributes(CreateGeneratedCodeAttribute(), CreateDebugNonUserCodeAttribute());
+            }
+            return node.AddMembers(ctorNode);
+        }
+
         public static ClassDeclarationSyntax WithMethods(this ClassDeclarationSyntax node, ITypeSymbol mvcSymbol)
         {
             return node;

@@ -20,18 +20,6 @@ namespace T4MVCCoreLiteTool.Extensions
                 controllerNode,
                 "ActionNamesClass",
                 SyntaxKind.PublicKeyword,
-                SyntaxKind.ReadOnlyKeyword);
-        }
-
-        public static ClassDeclarationSyntax WithActionConstantsClass(
-            this ClassDeclarationSyntax node,
-            ClassDeclarationSyntax controllerNode)
-        {
-            // create ActionConstants sub class
-            return node.WithSubClassMembersAsStrings(
-                controllerNode,
-                "ActionNameConstants",
-                SyntaxKind.PublicKeyword,
                 SyntaxKind.ConstKeyword);
         }
 
@@ -80,6 +68,7 @@ namespace T4MVCCoreLiteTool.Extensions
                     x => CreateFieldWithDefaultInitializer(
                         x.Identifier.ToString().Replace("Controller", string.Empty),
                         x.ToQualifiedName(),
+                        ((NamespaceDeclarationSyntax)x?.Parent)?.Name + "." + Services.ControllerGeneratorService.GetR4MVCControllerClassName(x),
                         SyntaxKind.PublicKeyword,
                         SyntaxKind.StaticKeyword)).Cast<MemberDeclarationSyntax>().ToArray());
 

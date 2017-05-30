@@ -45,6 +45,7 @@ namespace T4MVCCoreLiteTool.Services
                     {
                         genControllerClass = genControllerClass.WithDefaultConstructor(true, SyntaxKind.PublicKeyword);
                     }
+                    genControllerClass = genControllerClass.WithDummyConstructor(true, SyntaxKind.ProtectedKeyword);
 
                     // add all method stubs, TODO criteria for this: only public virtual actionresults?
                     // add subclasses, fields, properties, constants for action names
@@ -55,22 +56,15 @@ namespace T4MVCCoreLiteTool.Services
                                 mvcControllerNode.Identifier.ToString(),
                                 true,
                                 SyntaxKind.PublicKeyword,
-                                SyntaxKind.ReadOnlyKeyword)
-                            .WithStringField(
-                                "NameConst",
-                                mvcControllerNode.Identifier.ToString(),
-                                true,
-                                SyntaxKind.PublicKeyword,
                                 SyntaxKind.ConstKeyword)
                             .WithStringField(
                                 "Area",
-                                mvcControllerNode.Identifier.ToString(),
+                                "", // needs area
                                 true,
                                 SyntaxKind.PublicKeyword,
-                                SyntaxKind.ReadOnlyKeyword)
+                                SyntaxKind.ConstKeyword)
                             .WithField("s_actions", "ActionNamesClass", SyntaxKind.StaticKeyword, SyntaxKind.ReadOnlyKeyword)
                             .WithActionNameClass(mvcControllerNode)
-                            .WithActionConstantsClass(mvcControllerNode)
                             .WithField("s_views", "ViewsClass", SyntaxKind.StaticKeyword, SyntaxKind.ReadOnlyKeyword)
                             .WithViewsClass(_viewLocator.FindViews());
 
@@ -86,7 +80,7 @@ namespace T4MVCCoreLiteTool.Services
                             SyntaxKind.PartialKeyword)
                             .WithAttributes(SyntaxNodeHelpers.CreateGeneratedCodeAttribute(), SyntaxNodeHelpers.CreateDebugNonUserCodeAttribute())
                             .WithBaseTypes(mvcControllerNode.ToQualifiedName())
-                            .WithDefaultConstructor(false, SyntaxKind.PublicKeyword);
+                            .WithDefaultDummyBaseConstructor(false, SyntaxKind.PublicKeyword);
 
                     namespaceNode = namespaceNode.AddMembers(genControllerClass).AddMembers(r4ControllerClass);
                 }
@@ -94,7 +88,7 @@ namespace T4MVCCoreLiteTool.Services
             }
         }
 
-        private static string GetR4MVCControllerClassName(ClassDeclarationSyntax genControllerClass)
+        internal static string GetR4MVCControllerClassName(ClassDeclarationSyntax genControllerClass)
         {
             return string.Format("R4MVC_{0}", genControllerClass.Identifier);
         }
