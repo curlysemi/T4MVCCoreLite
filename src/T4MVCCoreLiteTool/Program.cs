@@ -1,12 +1,9 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.MSBuild;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace T4MVCCoreLiteTool
@@ -14,7 +11,6 @@ namespace T4MVCCoreLiteTool
     class Program
     {
         private static string ProjectPath;
-        private static string Namespace = "TestMvcApplication";
         static void Main(string[] args)
         {
             for (int i = 0; i < args.Length; i++)
@@ -40,7 +36,12 @@ namespace T4MVCCoreLiteTool
         {
             var workspace = MSBuildWorkspace.Create();
             var project = await workspace.OpenProjectAsync(ProjectPath);
+            foreach (var diag in workspace.Diagnostics)
+                Console.WriteLine($"  {diag.Kind}: {diag.Message}");
+
             var compilation = await project.GetCompilationAsync() as CSharpCompilation;
+            foreach (var diag in compilation.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error))
+                Console.WriteLine($"  {diag.Severity}: {diag.GetMessage()}");
 
             var generator = new T4MVCGenerator(
                 new Services.ControllerRewriterService(),
