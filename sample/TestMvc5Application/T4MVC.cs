@@ -28,6 +28,7 @@ using T4MVC;
 public static partial class MVC
 {
     public static TestMvc5Application.Controllers.HomeController Home = new TestMvc5Application.Controllers.T4MVC_HomeController();
+    public static TestMvc5Application.Controllers.UserController User = new TestMvc5Application.Controllers.T4MVC_UserController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
