@@ -16,7 +16,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMvcApplication", "sampl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{664D24BB-1B8A-4C98-AD87-77F225D44D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc5Application", "sample\TestMvc5Application\TestMvc5Application.csproj", "{91AF229F-7BEB-47F5-831E-540C2F2A673C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc5Application", "samples\TestMvc5Application\TestMvc5Application.csproj", "{91AF229F-7BEB-47F5-831E-540C2F2A673C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EC21E790-A316-42A2-82F2-98270889E63F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
