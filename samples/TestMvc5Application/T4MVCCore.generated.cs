@@ -14,6 +14,264 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using R4Mvc;
 
+namespace TestMvc5Application.Controllers
+{
+    public partial class HomeController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public HomeController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected HomeController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "HomeController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public const string Index = "Index";
+            public const string About = "About";
+            public const string Contact = "Contact";
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_HomeController : TestMvc5Application.Controllers.HomeController
+    {
+        public R4MVC_HomeController(): base (Dummy.Instance)
+        {
+        }
+    }
+
+    public partial class UserController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public UserController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected UserController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "UserController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public const string Details = "Details";
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_UserController : TestMvc5Application.Controllers.UserController
+    {
+        public R4MVC_UserController(): base (Dummy.Instance)
+        {
+        }
+    }
+
+    public partial class HomeController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public HomeController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected HomeController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "HomeController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_HomeController : TestMvc5Application.Controllers.HomeController
+    {
+        public R4MVC_HomeController(): base (Dummy.Instance)
+        {
+        }
+    }
+
+    public partial class T4MVC_HomeController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public T4MVC_HomeController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected T4MVC_HomeController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "T4MVC_HomeController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public const string Index = "Index";
+            public const string About = "About";
+            public const string Contact = "Contact";
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_T4MVC_HomeController : TestMvc5Application.Controllers.T4MVC_HomeController
+    {
+        public R4MVC_T4MVC_HomeController(): base (Dummy.Instance)
+        {
+        }
+    }
+
+    public partial class UserController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public UserController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected UserController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "UserController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public const string Details = "Details";
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_UserController : TestMvc5Application.Controllers.UserController
+    {
+        public R4MVC_UserController(): base (Dummy.Instance)
+        {
+        }
+    }
+
+    public partial class T4MVC_UserController
+    {
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public T4MVC_UserController()
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        protected T4MVC_UserController(Dummy d)
+        {
+        }
+
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Name = "T4MVC_UserController";
+        [GeneratedCode("R4MVC", "1.0")]
+        public const string Area = "";
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public const string Details = "Details";
+        }
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
+    public partial class R4MVC_T4MVC_UserController : TestMvc5Application.Controllers.T4MVC_UserController
+    {
+        public R4MVC_T4MVC_UserController(): base (Dummy.Instance)
+        {
+        }
+    }
+}
+
 namespace Links
 {
 }
@@ -34,6 +292,12 @@ namespace R4Mvc
 [GeneratedCode("R4MVC", "1.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    public static TestMvc5Application.Controllers.HomeController Home = new TestMvc5Application.Controllers.R4MVC_HomeController();
+    public static TestMvc5Application.Controllers.UserController User = new TestMvc5Application.Controllers.R4MVC_UserController();
+    public static TestMvc5Application.Controllers.HomeController Home = new TestMvc5Application.Controllers.R4MVC_HomeController();
+    public static TestMvc5Application.Controllers.T4MVC_HomeController T4MVC_Home = new TestMvc5Application.Controllers.R4MVC_T4MVC_HomeController();
+    public static TestMvc5Application.Controllers.UserController User = new TestMvc5Application.Controllers.R4MVC_UserController();
+    public static TestMvc5Application.Controllers.T4MVC_UserController T4MVC_User = new TestMvc5Application.Controllers.R4MVC_T4MVC_UserController();
 }
 #pragma warning restore 1591, 3008, 3009, 0108
 
