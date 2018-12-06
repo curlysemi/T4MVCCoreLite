@@ -126,7 +126,7 @@ namespace TestMvc5Application.Controllers
         partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, string name);
 
         [NonAction]
-        public override virtual System.Web.Mvc.ActionResult Details(int id, string name)
+        public override System.Web.Mvc.ActionResult Details(int id, string name)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
@@ -139,7 +139,7 @@ namespace TestMvc5Application.Controllers
         partial void DetailsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, TestMvc5Application.Models.User.UserDetails model);
 
         [NonAction]
-        public override virtual System.Web.Mvc.ActionResult Details(TestMvc5Application.Models.User.UserDetails model)
+        public override System.Web.Mvc.ActionResult Details(TestMvc5Application.Models.User.UserDetails model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Details);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

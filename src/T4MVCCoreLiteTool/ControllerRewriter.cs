@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -59,13 +60,13 @@ namespace T4MVCCoreLiteTool
         {
             node = (MethodDeclarationSyntax)base.VisitMethodDeclaration(node);
 
-            // only public methods not marked as virtual
-            if (node.Modifiers.Any(SyntaxKind.PublicKeyword) && !node.Modifiers.Any(SyntaxKind.VirtualKeyword))
+            // only public methods not marked as virtual (
+            if (node.Modifiers.Any(SyntaxKind.PublicKeyword) && !node.Modifiers.Any(SyntaxKind.VirtualKeyword)/* && !node.Modifiers.Any(SyntaxKind.OverrideKeyword)*/)
             {
                 var symbol = _compiler.GetSemanticModel(node.SyntaxTree).GetDeclaredSymbol(node);
                 if (symbol.InheritsFrom<Controller>())
                 {
-                    Debug.WriteLine(
+                    Console.WriteLine(
                         "R4MVC - Marking controller method {0} as virtual from {1}",
                         symbol.ToString(),
                         symbol.ContainingType?.ToString());

@@ -4,16 +4,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using T4MVCCoreLiteTool.Extensions;
 
 namespace T4MVCCoreLiteTool.Services
 {
     public class ControllerRewriterService : IControllerRewriterService
     {
-        public ImmutableArray<ClassDeclarationSyntax> RewriteControllers(CSharpCompilation compiler, string outputFileName)
+        public ImmutableArray<ClassDeclarationSyntax> RewriteControllers(CSharpCompilation compiler, params string[] blacklistedExtensions)
         {
             var mvcControllerNodes = new List<ClassDeclarationSyntax>();
 
-            foreach (var tree in compiler.SyntaxTrees.Where(x => !x.FilePath.EndsWith(outputFileName)))
+            foreach (var tree in compiler.SyntaxTrees.Where(x => blacklistedExtensions.Any(b => !x.FilePath.EndsWith(b))))
             {
                 // if syntaxtree has errors, skip code generation
                 if (tree.GetDiagnostics().Any(x => x.Severity == DiagnosticSeverity.Error)) continue;

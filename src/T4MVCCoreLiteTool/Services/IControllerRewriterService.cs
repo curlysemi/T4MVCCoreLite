@@ -6,6 +6,6 @@ namespace T4MVCCoreLiteTool.Services
 {
     public interface IControllerRewriterService
     {
-        ImmutableArray<ClassDeclarationSyntax> RewriteControllers(CSharpCompilation compiler, string outputFileName);
+        ImmutableArray<ClassDeclarationSyntax> RewriteControllers(CSharpCompilation compiler, params string[] blacklistedExtensions);
     }
 }
